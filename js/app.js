@@ -27,7 +27,7 @@ Player.prototype.update = function() {
 };
 
 Player.prototype.render = function() {
-    // To fill-in later
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
 // Update the enemy's position, required method for game
@@ -55,7 +55,7 @@ Enemy.prototype.render = function() {
 var allEnemies = []; // there will be multiple enemies depending on level of game.
 
 var myEnemy = new Enemy(15, 0, 0);
-var player = new Player(7, 0, 10);
+var player = new Player(7,  0, 200);
 
 allEnemies.push(myEnemy);
 
