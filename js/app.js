@@ -49,6 +49,11 @@ Enemy.prototype.update = function(dt) {
     // which will ensure the game runs at the same speed for
     // all computers.
     this.x = this.x + this.speed * dt;
+
+    // Keep the enemy within the canvas and have it come back to its original starting x-axis position
+    if(this.x >= 505) {
+        this.x = 0;
+    }
 };
 
 // Draw the enemy on the screen, required method for game
@@ -67,8 +72,8 @@ Enemy.prototype.render = function() {
 
 var allEnemies = []; // there will be multiple enemies depending on level of game.
 
-var myEnemy = new Enemy(15, 0, 0);
-var player = new Player(50,  0, 200);
+var myEnemy = new Enemy(120, 0, 0);
+var player = new Player(90,  0, 200);
 
 allEnemies.push(myEnemy);
 
