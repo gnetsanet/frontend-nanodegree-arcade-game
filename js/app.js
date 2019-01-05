@@ -40,6 +40,16 @@ Player.prototype.update = function() {
     if(this.y <= -100) {
         this.y = 200;
     }
+
+    if(this.x >= 505) {
+        this.x = 450;
+    }
+    if(this.x <= -50) {
+        this.x = -50;
+    }
+    if(this.y >= 500) {
+        this.y = 390;
+    }
 };
 
 Player.prototype.render = function() {
