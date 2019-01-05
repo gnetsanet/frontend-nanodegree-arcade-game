@@ -18,8 +18,20 @@ var Player = function(speed, x, y) {
     this.y = y;
 };
 
-Player.prototype.handleInput = function() {
-    // To fill-in later
+Player.prototype.handleInput = function(keyPress) {
+    if (keyPress == 'left') {
+        player.x -= player.speed;
+    }
+    if (keyPress == 'up') {
+        player.y -= player.speed - 40;
+    }
+    if (keyPress == 'right') {
+        player.x += player.speed;
+    }
+    if (keyPress == 'down') {
+        player.y += player.speed - 20;
+    }
+    console.log('keyPress is: ' + keyPress);
 };
 
 Player.prototype.update = function() {
@@ -36,6 +48,7 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
+    this.x = this.x + this.speed * dt;
 };
 
 // Draw the enemy on the screen, required method for game
@@ -55,7 +68,7 @@ Enemy.prototype.render = function() {
 var allEnemies = []; // there will be multiple enemies depending on level of game.
 
 var myEnemy = new Enemy(15, 0, 0);
-var player = new Player(7,  0, 200);
+var player = new Player(50,  0, 200);
 
 allEnemies.push(myEnemy);
 
