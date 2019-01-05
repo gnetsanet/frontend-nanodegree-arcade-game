@@ -35,7 +35,11 @@ Player.prototype.handleInput = function(keyPress) {
 };
 
 Player.prototype.update = function() {
-    // To fill-in later
+    // Move the player back to the initial starting location when it is outside of the canvas on the y-axis
+    // We may need to change this later since the player reaching this y-axis location means winning/scoring.
+    if(this.y <= -100) {
+        this.y = 200;
+    }
 };
 
 Player.prototype.render = function() {
