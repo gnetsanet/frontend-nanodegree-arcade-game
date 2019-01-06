@@ -68,16 +68,21 @@ var contactWithEnemy = function(myEnemy) {
 
 };
 
-var showScoreAndLevel = function(score, level) {
+var congratulate = function() {
     var canvas = document.getElementsByTagName('canvas')[0];
-    scoreLevelElement.innerHTML = 'Score: ' + score + ', ' + 'Level: ' + level; 
+    scoreLevelElement.innerHTML = 'Congratulations! You won!'; 
     document.body.appendChild(scoreLevelElement, canvas);
+};
+
+var checkIfGameIsWon = function() {
+    if(player.y <= 0 ) {
+        congratulate();
+    }
 };
 
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-    //Modify DOM with game score and level
-    showScoreAndLevel(score, level);
+    checkIfGameIsWon();
 };
 
 // Update the enemy's position, required method for game
