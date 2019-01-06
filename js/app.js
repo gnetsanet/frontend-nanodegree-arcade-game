@@ -23,13 +23,13 @@ Player.prototype.handleInput = function(keyPress) {
         player.x = player.x - (player.speed + 60);
     }
     if (keyPress == 'up') {
-        player.y = player.y - (player.speed + 40);
+        player.y = player.y - (player.speed - 20);
     }
     if (keyPress == 'right') {
         player.x = player.x + player.speed + 60;
     }
     if (keyPress == 'down') {
-        player.y = player.y + player.speed + 40;
+        player.y = player.y + player.speed - 20;
     }
     console.log('keyPress is: ' + keyPress);
 };
@@ -69,15 +69,33 @@ var contactWithEnemy = function(myEnemy) {
 
 };
 
+var endGame = function(enemies) {
+     for ( var k=0; k < enemies.length; k++) {
+            enemies[k].speed = 0;
+    }
+};
+
 var announceGameStatus = function(message) {
     var canvas = document.getElementsByTagName('canvas')[0];
     scoreLevelElement.innerHTML = message; 
     document.body.appendChild(scoreLevelElement, canvas);
 };
 
+
+var addReplayFunctionality = function() {
+    var replayElement = document.getElementsByClassName('fa-repeat');
+    replayElement[0].addEventListener('click', function() {
+        location.reload();
+    });
+};
+
 var checkIfGameIsWon = function() {
     if(player.y <= 0 ) {
-        announceGameStatus('Congratulations, you won!!!');
+        player.x = 70;
+        player.y = 320;
+        announceGameStatus('Congratulation. You won!');
+        addReplayFunctionality();
+        endGame(allEnemies);
     }
 };
 
