@@ -63,7 +63,9 @@ var contactWithEnemy = function(myEnemy) {
 
         player.x = 70;
         player.y = 320;
-        announceGameStatus('Game Over. You lose!')
+        announceGameStatus('Game Over. You lose!');
+        addReplayFunctionality();
+        endGame(allEnemies);
         
     }
 
