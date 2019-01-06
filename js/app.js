@@ -77,8 +77,8 @@ var endGame = function(enemies) {
 
 var announceGameStatus = function(message) {
     var canvas = document.getElementsByTagName('canvas')[0];
-    scoreLevelElement.innerHTML = message; 
-    document.body.appendChild(scoreLevelElement, canvas);
+    gameStatusElement.innerHTML = message; 
+    document.body.appendChild(gameStatusElement, canvas);
 };
 
 
@@ -138,12 +138,13 @@ var allEnemies = []; // there will be multiple enemies depending on level of gam
 
 var myEnemy = new Enemy(50, 0, 150);
 var player = new Player(50,  70, 320);
-var score = 0;
-var level = 1;
-var scoreLevelElement = document.createElement('div');
 
-allEnemies.push(myEnemy);
+var gameStatusElement = document.createElement('div');
 
+for (i=0; i<5; i++) {
+    var myEnemy = new Enemy(Math.random()*200, 0, Math.random()*170 + 55);
+    allEnemies.push(myEnemy);
+}
 
 
 // This listens for key presses and sends the keys to your
