@@ -20,16 +20,16 @@ var Player = function(speed, x, y) {
 
 Player.prototype.handleInput = function(keyPress) {
     if (keyPress == 'left') {
-        player.x -= player.speed;
+        player.x = player.x - (player.speed + 60);
     }
     if (keyPress == 'up') {
-        player.y -= player.speed - 40;
+        player.y = player.y - (player.speed + 40);
     }
     if (keyPress == 'right') {
-        player.x += player.speed;
+        player.x = player.x + player.speed + 60;
     }
     if (keyPress == 'down') {
-        player.y += player.speed - 20;
+        player.y = player.y + player.speed + 40;
     }
     console.log('keyPress is: ' + keyPress);
 };
@@ -52,6 +52,22 @@ Player.prototype.update = function() {
     }
 };
 
+var contactWithEnemy = function(myEnemy) {
+
+    if (
+        player.x < myEnemy.x + 60 &&
+        player.x + 37 > myEnemy.x &&
+        player.y < myEnemy.y + 25 &&
+        30 + player.y > myEnemy.y
+        ) {
+
+        player.x = 70;
+        player.y = 320;
+        
+    }
+
+};
+
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
@@ -68,6 +84,8 @@ Enemy.prototype.update = function(dt) {
     if(this.x >= 505) {
         this.x = 0;
     }
+
+    contactWithEnemy(this);
 };
 
 // Draw the enemy on the screen, required method for game
@@ -86,8 +104,8 @@ Enemy.prototype.render = function() {
 
 var allEnemies = []; // there will be multiple enemies depending on level of game.
 
-var myEnemy = new Enemy(120, 0, 0);
-var player = new Player(90,  0, 200);
+var myEnemy = new Enemy(50, 0, 150);
+var player = new Player(50,  70, 320);
 
 allEnemies.push(myEnemy);
 
