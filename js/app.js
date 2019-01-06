@@ -68,8 +68,16 @@ var contactWithEnemy = function(myEnemy) {
 
 };
 
+var showScoreAndLevel = function(score, level) {
+    var canvas = document.getElementsByTagName('canvas')[0];
+    scoreLevelElement.innerHTML = 'Score: ' + score + ', ' + 'Level: ' + level; 
+    document.body.appendChild(scoreLevelElement, canvas);
+};
+
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+    //Modify DOM with game score and level
+    showScoreAndLevel(score, level);
 };
 
 // Update the enemy's position, required method for game
@@ -106,6 +114,9 @@ var allEnemies = []; // there will be multiple enemies depending on level of gam
 
 var myEnemy = new Enemy(50, 0, 150);
 var player = new Player(50,  70, 320);
+var score = 0;
+var level = 1;
+var scoreLevelElement = document.createElement('div');
 
 allEnemies.push(myEnemy);
 
