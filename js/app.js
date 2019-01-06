@@ -20,16 +20,16 @@ var Player = function(speed, x, y) {
 
 Player.prototype.handleInput = function(keyPress) {
     if (keyPress == 'left') {
-        player.x = player.x - (player.speed + 60);
+        this.x = this.x - (this.speed + 60);
     }
     if (keyPress == 'up') {
-        player.y = player.y - (player.speed - 20);
+        this.y = this.y - (this.speed - 20);
     }
     if (keyPress == 'right') {
-        player.x = player.x + player.speed + 60;
+        this.x = this.x + this.speed + 60;
     }
     if (keyPress == 'down') {
-        player.y = player.y + player.speed - 20;
+        this.y = this.y + this.speed - 20;
     }
     console.log('keyPress is: ' + keyPress);
 };
