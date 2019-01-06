@@ -1,4 +1,6 @@
 // Enemies our player must avoid
+'use strict';
+
 var Enemy = function(speed, x, y) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
@@ -144,7 +146,7 @@ var player = new Player(50,  70, 320);
 
 var gameStatusElement = document.createElement('div');
 
-for (i=0; i<5; i++) {
+for (var i=0; i<5; i++) {
     var myEnemy = new Enemy(Math.random()*200, 0, Math.random()*170 + 55);
     allEnemies.push(myEnemy);
 }
