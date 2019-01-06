@@ -38,7 +38,7 @@ Player.prototype.update = function() {
     // Move the player back to the initial starting location when it is outside of the canvas on the y-axis
     // We may need to change this later since the player reaching this y-axis location means winning/scoring.
     if(this.y <= -100) {
-        this.y = 200;
+        this.y = -50;
     }
 
     if(this.x >= 505) {
@@ -63,20 +63,21 @@ var contactWithEnemy = function(myEnemy) {
 
         player.x = 70;
         player.y = 320;
+        announceGameStatus('Game Over. You lose!')
         
     }
 
 };
 
-var congratulate = function() {
+var announceGameStatus = function(message) {
     var canvas = document.getElementsByTagName('canvas')[0];
-    scoreLevelElement.innerHTML = 'Congratulations! You won!'; 
+    scoreLevelElement.innerHTML = message; 
     document.body.appendChild(scoreLevelElement, canvas);
 };
 
 var checkIfGameIsWon = function() {
     if(player.y <= 0 ) {
-        congratulate();
+        announceGameStatus('Congratulations, you won!!!');
     }
 };
 
