@@ -14,6 +14,11 @@ class Enemy {
         this.y = y;
     }
 
+    // Draw the enemy on the screen, required method for game
+    render() {
+        ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+    };
+
     // Update the enemy's position, required method for game
     // Parameter: dt, a time delta between ticks
     update(dt) {
@@ -29,53 +34,57 @@ class Enemy {
 
         contactWithEnemy(this);
     };
+};
 
-    // Draw the enemy on the screen, required method for game
+class Player  {
+
+    constructor(speed, x, y) {
+        this.sprite = 'images/char-princess-girl.png';
+        this.speed = speed;
+        this.x = x;
+        this.y = y;
+    }
+
     render() {
         ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+        checkIfGameIsWon();
+    };
+
+    update() {
+        // Move the player back to the initial starting location when it is outside of the canvas on the y-axis
+        // We may need to change this later since the player reaching this y-axis location means winning/scoring.
+        if(this.y <= -100) {
+            this.y = -50;
+        }
+
+        if(this.x >= 505) {
+            this.x = 450;
+        }
+        if(this.x <= -50) {
+            this.x = -50;
+        }
+        if(this.y >= 500) {
+            this.y = 390;
+        }
+    };
+
+    handleInput(keyPress) {
+        if (keyPress == 'left') {
+            this.x = this.x - (this.speed + 60);
+        }
+        if (keyPress == 'up') {
+            this.y = this.y - (this.speed - 20);
+        }
+        if (keyPress == 'right') {
+            this.x = this.x + this.speed + 60;
+        }
+        if (keyPress == 'down') {
+            this.y = this.y + this.speed - 20;
+        }
+        console.log('keyPress is: ' + keyPress);
     };
 };
 
-var Player = function(speed, x, y) {
-    this.sprite = 'images/char-princess-girl.png';
-    this.speed = speed;
-    this.x = x;
-    this.y = y;
-};
-
-Player.prototype.handleInput = function(keyPress) {
-    if (keyPress == 'left') {
-        this.x = this.x - (this.speed + 60);
-    }
-    if (keyPress == 'up') {
-        this.y = this.y - (this.speed - 20);
-    }
-    if (keyPress == 'right') {
-        this.x = this.x + this.speed + 60;
-    }
-    if (keyPress == 'down') {
-        this.y = this.y + this.speed - 20;
-    }
-    console.log('keyPress is: ' + keyPress);
-};
-
-Player.prototype.update = function() {
-    // Move the player back to the initial starting location when it is outside of the canvas on the y-axis
-    // We may need to change this later since the player reaching this y-axis location means winning/scoring.
-    if(this.y <= -100) {
-        this.y = -50;
-    }
-
-    if(this.x >= 505) {
-        this.x = 450;
-    }
-    if(this.x <= -50) {
-        this.x = -50;
-    }
-    if(this.y >= 500) {
-        this.y = 390;
-    }
-};
 
 var contactWithEnemy = function(myEnemy) {
 
@@ -93,7 +102,6 @@ var contactWithEnemy = function(myEnemy) {
         endGame(allEnemies);
         
     }
-
 };
 
 var endGame = function(enemies) {
@@ -125,11 +133,6 @@ var checkIfGameIsWon = function() {
         addReplayFunctionality();
         endGame(allEnemies);
     }
-};
-
-Player.prototype.render = function() {
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-    checkIfGameIsWon();
 };
 
 // Now write your own player class
