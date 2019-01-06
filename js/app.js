@@ -1,24 +1,30 @@
 'use strict';
 
-// Enemies our player must avoid
-class Enemy {
-    // Variables applied to each of our instances go here,
-    // we've provided one for you to get started
+//Define a superclass for game participants/moving objects in the game
+class GameActors {
 
-    // The image/sprite for our enemies, this uses
-    // a helper we've provided to easily load images
-    constructor(speed, x, y)  {
-        this.sprite = 'images/enemy-bug.png';
+    // Variables applied to each of our instances
+    constructor(sprite, speed, x, y)  {
+        this.sprite = sprite;
         this.speed = speed;
         this.x = x;
         this.y = y;
     }
 
-    // Draw the enemy on the screen, required method for game
+    // Draw the game actors, enemies and player, on the screen, required method for game
     render() {
         ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-    };
+    }
 
+};
+
+// Enemies our player must avoid
+class Enemy extends GameActors {
+
+    constructor(sprite, speed, x, y) {
+        super(sprite, speed, x, y);
+    }
+    
     // Update the enemy's position, required method for game
     // Parameter: dt, a time delta between ticks
     update(dt) {
@@ -36,36 +42,15 @@ class Enemy {
     };
 };
 
-class Player  {
+class Player extends GameActors  {
 
-    constructor(speed, x, y) {
-        this.sprite = 'images/char-princess-girl.png';
-        this.speed = speed;
-        this.x = x;
-        this.y = y;
+    constructor(sprite, speed, x, y) {
+        super(sprite, speed, x, y);
     }
 
-    render() {
-        ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-        checkIfGameIsWon();
-    };
-
     update() {
-        // Move the player back to the initial starting location when it is outside of the canvas on the y-axis
-        // We may need to change this later since the player reaching this y-axis location means winning/scoring.
-        if(this.y <= -100) {
-            this.y = -50;
-        }
 
-        if(this.x >= 505) {
-            this.x = 450;
-        }
-        if(this.x <= -50) {
-            this.x = -50;
-        }
-        if(this.y >= 500) {
-            this.y = 390;
-        }
+        checkIfGameIsWon();
     };
 
     handleInput(keyPress) {
@@ -81,7 +66,22 @@ class Player  {
         if (keyPress == 'down') {
             this.y = this.y + this.speed - 20;
         }
-        console.log('keyPress is: ' + keyPress);
+
+        // The following series of if blocks is mean to  move the player back to the initial 
+        // starting location when it advances outside of the canvas
+        if(this.y <= -100) {
+            this.y = -50;
+        }
+
+        if(this.x >= 404) {
+            this.x = 404;
+        }
+        if(this.x <= 0) {
+            this.x = 0;
+        }
+        if(this.y >= 390) {
+            this.y = 390;
+        }
     };
 };
 
@@ -135,24 +135,16 @@ var checkIfGameIsWon = function() {
     }
 };
 
-// Now write your own player class
-// This class requires an update(), render() and
-// a handleInput() method.
-
-
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
-
-var allEnemies = []; // there will be multiple enemies depending on level of game.
-
-var myEnemy = new Enemy(50, 0, 150);
-var player = new Player(50,  70, 320);
-
+ 
+var player = new Player('images/char-princess-girl.png', 50,  70, 320);
 var gameStatusElement = document.createElement('div');
 
+var allEnemies = []; // there will be multiple enemies
 for (var i=0; i<5; i++) {
-    var myEnemy = new Enemy(Math.random()*200, 0, Math.random()*170 + 55);
+    var myEnemy = new Enemy('images/enemy-bug.png', Math.random()*200, 0, Math.random()*170 + 55);
     allEnemies.push(myEnemy);
 }
 
