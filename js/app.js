@@ -77,7 +77,8 @@ var endGame = function(enemies) {
 
 var announceGameStatus = function(message) {
     var canvas = document.getElementsByTagName('canvas')[0];
-    gameStatusElement.innerHTML = message; 
+    var replayButton = '<div class="restart"><i class="fa fa-repeat"></i></div>' 
+    gameStatusElement.innerHTML =  message + replayButton;
     document.body.appendChild(gameStatusElement, canvas);
 };
 
